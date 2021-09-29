@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EPNG_ApiCommon.Entities
 {
-    public class Auditable : RootEntity, IAuditable
+    public class Auditable : Entity, IAuditable
     {
         public Auditable()
         {

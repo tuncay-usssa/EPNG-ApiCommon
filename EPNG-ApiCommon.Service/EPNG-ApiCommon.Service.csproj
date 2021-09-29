@@ -1,8 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>EPNG_ApiCommon.Service</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="tinymapper" Version="3.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EPNG-ApiCommon.DataAccess\EPNG-ApiCommon.DataAccess.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -5,4 +5,8 @@
     <RootNamespace>EPNG_ApiCommon.DataAccess</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="microsoft.entityframeworkcore" Version="5.0.10" />
+  </ItemGroup>
+
 </Project>
