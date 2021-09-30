@@ -8,11 +8,10 @@ namespace EPNG_ApiCommon.Messages
     {
         public FilterItem()
         {
-            FilterValue = new List<TType>();
             SortDescending = false;
             OperatorType = OperatorType.AND;
         }
-        public List<TType> FilterValue { get; set; }
+        public TType FilterValue { get; set; }
         public OperatorType OperatorType { get; set; }
         public int SortPosition { get; set; }
         public bool SortDescending { get; set; }
