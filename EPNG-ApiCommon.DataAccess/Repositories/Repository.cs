@@ -12,10 +12,10 @@ namespace EPNG_ApiCommon.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        protected readonly IDbContext _context;
+        protected readonly DbContext _context;
         //private readonly ICoreLogger _logger;
 
-        public Repository(IDbContext context)
+        public Repository(DbContext context)
         {
             _context = context;
             //_logger = logger;
