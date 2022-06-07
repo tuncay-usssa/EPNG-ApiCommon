@@ -1,7 +1,5 @@
 *.pdb
 *.dll
-*.targets
-*.props
 *.cache
 *.manifest
 *.testlog
@@ -9,5 +7,4 @@
 **/bin
 **/obj
 **/.vs
-EPNG-ApiCommon.Service/obj/project.assets.json
-EPNG-ApiCommon.DataAccess/obj/project.assets.json
+**/*.csproj.user
