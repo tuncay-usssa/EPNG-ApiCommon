@@ -137,7 +137,12 @@ namespace EPNG_ApiCommon.Repositories
             return null;
         }
 
-        protected SearchResults<TEntity> ApplyFilter<TFilter, TSort>(TFilter filter, ExpressionStarter<TEntity> predicate, Func<TEntity, TSort> orderBy) where TFilter : Filter
+        protected SearchResults<TEntity> ApplyFilter<TFilter>(TFilter filter, ExpressionStarter<TEntity> predicate, bool sortDescending = false) where TFilter : Filter
+        {
+            return ApplyFilter<TFilter, object>(filter, predicate, null, sortDescending);
+        }
+
+        protected SearchResults<TEntity> ApplyFilter<TFilter, TSort>(TFilter filter, ExpressionStarter<TEntity> predicate, Expression<Func<TEntity, TSort>>? orderBy, bool sortDescending = false) where TFilter : Filter
         {
             if (filter.PageIndex == 0)
             {
@@ -146,8 +151,16 @@ namespace EPNG_ApiCommon.Repositories
 
             var results = ScopedItems()
                 .AsExpandable()
-                .Where(predicate)
-                .OrderBy(orderBy);
+                .Where(predicate);
+
+            // TODO(jpr): use the FilterItem logic somehow
+            if (orderBy != null) {
+                if (sortDescending) {
+                    results = results.OrderByDescending(orderBy);
+                } else {
+                    results = results.OrderBy(orderBy);
+                }
+            }
 
             var currentResults = results
                 .Skip((filter.PageIndex - 1) * filter.PageSize)
