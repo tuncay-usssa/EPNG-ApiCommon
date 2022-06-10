@@ -1,12 +1,12 @@
-﻿using System;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using EPNG_ApiCommon.DataAccess;
+
 using EPNG_ApiCommon.Entities;
 using EPNG_ApiCommon.Messages;
-using Microsoft.EntityFrameworkCore;
 
 namespace EPNG_ApiCommon.Repositories
 {
@@ -135,6 +135,31 @@ namespace EPNG_ApiCommon.Repositories
         public virtual SearchResults<TEntity> Filter<TFilter>(TFilter filter) where TFilter : Filter
         {
             return null;
+        }
+
+        protected SearchResults<TEntity> ApplyFilter<TFilter, TSort>(TFilter filter, ExpressionStarter<TEntity> predicate, Func<TEntity, TSort> orderBy) where TFilter : Filter
+        {
+            if (filter.PageIndex == 0)
+            {
+                filter.PageIndex = 1;
+            }
+
+            var results = ScopedItems()
+                .AsExpandable()
+                .Where(predicate)
+                .OrderBy(orderBy);
+
+            var currentResults = results
+                .Skip((filter.PageIndex - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
+
+            return new SearchResults<TEntity>
+            {
+                TotalResultCount = results.Count(),
+                PageNumber = filter.PageIndex,
+                CurrentPageResults = currentResults,
+            };
         }
 
         public ICollection<TEntity> Search(Expression<Func<TEntity, bool>> predicate)
