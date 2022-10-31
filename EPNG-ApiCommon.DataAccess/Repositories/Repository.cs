@@ -161,15 +161,14 @@ namespace EPNG_ApiCommon.Repositories
                     results = results.OrderBy(orderBy);
                 }
             }
-            var totalRes = results.ToList();
-            var currentResults = totalRes
+            var currentResults = results
                 .Skip((filter.PageIndex - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToList();
 
             return new SearchResults<TEntity>
             {
-                TotalResultCount = totalRes.Count(),
+                TotalResultCount = results.Count(),
                 PageNumber = filter.PageIndex,
                 CurrentPageResults = currentResults,
             };
