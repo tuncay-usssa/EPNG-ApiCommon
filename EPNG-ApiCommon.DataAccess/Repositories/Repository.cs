@@ -154,10 +154,14 @@ namespace EPNG_ApiCommon.Repositories
                 .Where(predicate);
 
             // TODO(jpr): use the FilterItem logic somehow
-            if (orderBy != null) {
-                if (sortDescending) {
+            if (orderBy != null)
+            {
+                if (sortDescending)
+                {
                     results = results.OrderByDescending(orderBy);
-                } else {
+                }
+                else
+                {
                     results = results.OrderBy(orderBy);
                 }
             }
@@ -181,6 +185,21 @@ namespace EPNG_ApiCommon.Repositories
             //    Collation = new Collation("en", strength: CollationStrength.Primary)
             //}).ToList();
             return null;
+        }
+
+        // NOTE(jpr): sql server doesnt handle 'out of bounds' years gracefully
+        protected DateTime SanitizeDateTimeForEF(DateTime dt)
+        {
+            var minYear = 1900;
+            var maxYear = 2050;
+
+            if (dt.Year >= minYear && dt.Year <= maxYear)
+            {
+                return dt;
+            }
+
+            var actualYear = Math.Max(minYear, Math.Min(maxYear, dt.Year));
+            return new DateTime(actualYear, dt.Month, dt.Day);
         }
 
         //public List<THistEntity> UpdateHistoryItems<THistEntity>(THistEntity newItem) where THistEntity : AuditableHistory
@@ -221,4 +240,4 @@ namespace EPNG_ApiCommon.Repositories
         //    return typeof(TEntity).IsSubclassOf(typeof(Auditable));
         //}
     }
-    }
+}
