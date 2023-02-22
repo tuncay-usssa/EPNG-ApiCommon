@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using EPNG_ApiCommon.Entities;
 using EPNG_ApiCommon.Messages;
 using EPNG_ApiCommon.Repositories;
@@ -44,6 +45,20 @@ namespace EPNG_ApiCommon.Services
 
             return elements;
         }
+
+        public virtual async Task<List<TElement>> GetAllAsync()
+        {
+            List<TEntity> entities = await _genericRepository.GetAllAsync().ConfigureAwait(false);
+            List<TElement> elements = new List<TElement>();
+
+            foreach (TEntity entity in entities)
+            {
+                elements.Add(EntityToElementMapper(entity));
+            }
+
+            return elements;
+        }
+
 
 
         public virtual List<TElement> Find(Expression<Func<TEntity, bool>> predicate)

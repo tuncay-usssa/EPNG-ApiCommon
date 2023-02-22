@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EPNG_ApiCommon.Services
 {
@@ -10,6 +11,7 @@ namespace EPNG_ApiCommon.Services
     {
         TElement GetById(int id);
         List<TElement> GetAll();
+        Task<List<TElement>> GetAllAsync();
         List<TElement> Find(Expression<Func<TEntity, bool>> predicate);
 
         void Insert(TElement element);

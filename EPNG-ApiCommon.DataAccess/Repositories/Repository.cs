@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 
 using EPNG_ApiCommon.Entities;
 using EPNG_ApiCommon.Messages;
+using System.Threading.Tasks;
 
 namespace EPNG_ApiCommon.Repositories
 {
@@ -29,6 +30,11 @@ namespace EPNG_ApiCommon.Repositories
         public virtual List<TEntity> GetAll()
         {
             return ScopedItems()?.ToList();
+        }
+
+        public virtual Task<List<TEntity>> GetAllAsync()
+        {
+            return ScopedItems()?.ToListAsync();
         }
 
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EPNG_ApiCommon.Repositories
 {
@@ -11,6 +12,7 @@ namespace EPNG_ApiCommon.Repositories
 
         TEntity GetById(int id);
         List<TEntity> GetAll();
+        Task<List<TEntity>> GetAllAsync();
         List<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
         void Insert(TEntity element);
