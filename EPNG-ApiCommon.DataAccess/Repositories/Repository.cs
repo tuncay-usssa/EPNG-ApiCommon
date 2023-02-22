@@ -149,6 +149,16 @@ namespace EPNG_ApiCommon.Repositories
                 filter.PageIndex = 1;
             }
 
+            if (filter.PageSize < 1)
+            {
+                return new SearchResults<TEntity>
+                {
+                    TotalResultCount = 0,
+                    PageNumber = filter.PageIndex,
+                    CurrentPageResults = new List<TEntity>(),
+                };
+            }
+
             var results = ScopedItems()
                 .AsExpandable()
                 .Where(predicate);
