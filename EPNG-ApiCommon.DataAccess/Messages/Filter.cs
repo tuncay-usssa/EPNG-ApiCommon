@@ -8,7 +8,7 @@ namespace EPNG_ApiCommon.Messages
     {
         public Filter()
         {
-            PageIndex = 0;
+            PageIndex = 1;
             PageSize = 50;
         }
 
